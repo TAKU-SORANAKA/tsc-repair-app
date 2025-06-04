@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>診断</title></head>
+<body>
+    <h2>故障診断</h2>
+    <form method="POST">
+        製品名: <input type="text" name="product" required><br>
+        症状: <input type="text" name="symptom" required><br>
+        <button type="submit">診断する</button>
+    </form>
+    {% if result %}
+        <p>推定原因: {{ result }}</p>
+    {% endif %}
+</body>
+</html>
