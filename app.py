@@ -1,11 +1,36 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import csv
 import os
+import smtplib
+from email.message import EmailMessage
 
 app = Flask(__name__)
 app.secret_key = 'secret-key'
 
 DATA_FILE = 'data.csv'
+
+def send_email(to_email, code):
+    from_email = "ceo@ts-c.net"  # 送信元メール
+    password = os.getenv("EMAIL_PASSWORD")  # 環境変数から取得（推奨）
+
+    # セキュリティを考慮して平文でのパスワード直書きは避けてください
+    if not password:
+        raise RuntimeError("EMAIL_PASSWORD is not set in environment variables.")
+
+    msg = EmailMessage()
+    msg.set_content(f"認証コードは {code} です。")
+    msg['Subject'] = "認証コードのご案内"
+    msg['From'] = from_email
+    msg['To'] = to_email
+
+    try:
+        with smtplib.SMTP('smtp.ts-c.net', 587) as server:  # ←ここを実際のSMTPに
+            server.starttls()
+            server.login(from_email, password)
+            server.send_message(msg)
+    except Exception as e:
+        print(f"メール送信エラー: {e}")
+        raise RuntimeError("メール送信中に予期せぬエラーが発生しました。")
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
