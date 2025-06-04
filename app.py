@@ -31,13 +31,13 @@ def generate_code(length=6):
     return ''.join(random.choices(string.digits, k=length))
 
 def send_email(to_email, code):
-    from_email = os.environ.get('MAIL_ADDRESS')
-    password = os.environ.get('MAIL_PASSWORD')
-    smtp_server = 'smtp.gmail.com'
+    from_email = "ceo@ts-c.net"
+    password = os.environ.get('sachi111')
+    smtp_server = "mail.ts-c.net"
     smtp_port = 587
 
-    msg = MIMEText(f'認証コード: {code}')
-    msg['Subject'] = '認証コード'
+    msg = MIMEText(f'あなたの確認コードは: {code}')
+    msg['Subject'] = "【TSC　Repair Manager】ログイン確認コード"
     msg['From'] = from_email
     msg['To'] = to_email
 
