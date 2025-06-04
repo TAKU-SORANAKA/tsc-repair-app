@@ -1,7 +1,8 @@
+from flask import Flask, request, render_template
 import os
-import smtplib
 import random
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+import smtplib
+from email.message import EmailMessage
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
