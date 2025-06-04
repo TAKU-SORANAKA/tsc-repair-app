@@ -12,7 +12,7 @@ def generate_code(length=6):
     return ''.join(random.choices(string.digits, k=length))
 
 def send_email(to_email, code):
-    smtp_server = os.environ.get('SMTP_SERVER', 'smtp.ts-c.net')
+    smtp_server = os.environ.get('SMTP_SERVER', 'mail.ts-c.net')
     smtp_port = int(os.environ.get('SMTP_PORT', 587))
     from_email = os.environ.get('EMAIL_ADDRESS', 'ceo@ts-c.net')
     password = os.environ.get('EMAIL_PASSWORD')
