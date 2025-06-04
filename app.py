@@ -33,7 +33,7 @@ def send_code():
 
         msg = MIMEText(f'認証コードは {code} です。5分以内に入力してください。')
         msg['Subject'] = '株式会社ティーエス・コーポレーション 認証コード'
-        msg['From'] = SENDER_EMAIL
+        msg['From'] = 'ceo@ts-c.net'
         msg['To'] = email
 
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as smtp:
