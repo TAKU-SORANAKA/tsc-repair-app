@@ -32,13 +32,13 @@ def send_code():
         session['email'] = email
 
         msg = MIMEText(f'認証コードは {code} です。5分以内に入力してください。')
-        msg['Subject'] = 'TSコーポレーション 認証コード'
+        msg['Subject'] = '株式会社ティーエス・コーポレーション 認証コード'
         msg['From'] = SENDER_EMAIL
         msg['To'] = email
 
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as smtp:
             smtp.starttls()
-            smtp.login(SENDER_EMAIL, SENDER_PASSWORD)
+            smtp.login('ceo@ts-c.net', os.environ.get('sachi111')) 
             smtp.send_message(msg)
 
         flash('認証コードを送信しました')
