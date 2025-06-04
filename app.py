@@ -7,26 +7,18 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 def send_email(to_email, code):
-    from_email = "ceo@ts-c.net"
-    password = os.environ.get("EMAIL_PASSWORD")
-    smtp_server = "mail.ts-c.net"  # ← 実際のSMTPサーバー名に適宜修正してください
+    smtp_server = 'mail.ts-c.net'
     smtp_port = 587
+    from_email = 'ceo@ts-c.net'
+    password = os.environ.get('EMAIL_PASSWORD')
 
     if not password:
         raise RuntimeError("EMAIL_PASSWORD is not set in environment variables.")
 
+    subject = '認証コードのお知らせ'
+    body = f'以下の認証コードを入力してください：\n\n{code}'
+
     try:
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login(from_email, password)
-
-            subject = "認証コードのお知らせ"
-            body = f'以下の認証コードを入力してください：\n\n{code}'
-            msg = f"Subject: {subject}\n\n{body}"
-
- try:
         msg = EmailMessage()
         msg.set_content(body)
         msg['Subject'] = subject
