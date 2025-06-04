@@ -51,7 +51,7 @@ def send_code():
     if request.method == 'POST':
         email = request.form['email']
         if not email.endswith('@ts-c.net'):
-            return "社用メールアドレスのみ使用できます"
+            return "社用メールアドレスのみ登録ができます"
         code = generate_code()
         session['email'] = email
         session['code'] = code
