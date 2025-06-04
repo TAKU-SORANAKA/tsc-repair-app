@@ -49,15 +49,15 @@ def send_code():
         return redirect(url_for('verify_code'))
     return render_template('send_code.html')
 
-@app.route('/verify', methods=['GET', 'POST'])
+@app.route('/verify_code', methods=['GET', 'POST'])
 def verify_code():
     if request.method == 'POST':
-        user_code = request.form['code']
-        if user_code == session.get('code'):
-            return redirect(url_for('menu'))
+        input_code = request.form['code']
+        if input_code == session.get('code'):
+            return "認証に成功しました。"
         else:
-            flash('認証コードが間違っています。')
-    return render_template('verify.html')
+            return "認証コードが違います。"
+    return render_template('verify_code.html')
 
 @app.route('/menu')
 def menu():
