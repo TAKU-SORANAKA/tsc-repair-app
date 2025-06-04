@@ -1,11 +1,11 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, session
 import os
 import random
 import smtplib
 from email.message import EmailMessage
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = os.environ.get('SECRET_KEY', 'default_secret_key') 
 
 def send_email(to_email, code):
     smtp_server = 'mail.ts-c.net'
