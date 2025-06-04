@@ -25,8 +25,7 @@ DATA_FILE = 'data.csv'
 @app.route('/', methods=['GET', 'POST'])
 def send_code():
     if request.method == 'POST':
-        else:
-            return render_template('send_code.html')
+        else:return render_template('send_code.html')
         email = request.form['email']
         if not email.endswith('@ts-c.net'):
             return "社用メールアドレスのみ使用できます"
