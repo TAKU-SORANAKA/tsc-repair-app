@@ -36,6 +36,28 @@ def send_email(to_email, code):
     smtp_server = "mail.ts-c.net"
     smtp_port = 587
 
+ if not password:
+        raise RuntimeError("EMAIL_PASSWORD is not set in environment variables.")
+
+    try:
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login(from_email, password)
+
+            subject = "認証コードのお知らせ"
+            body = f"認証コードは {code} です。"
+            msg = f"Subject: {subject}\n\n{body}"
+
+            server.sendmail(from_email, to_email, msg)
+    except smtplib.SMTPAuthenticationError as e:
+        print(f"SMTP認証エラー: {e}")
+        raise RuntimeError("メールサーバの認証に失敗しました。ID/パスワードまたは認証形式を再確認してください。")
+    except Exception as e:
+        print(f"SMTP送信エラー: {e}")
+        raise RuntimeError("メールの送信中にエラーが発生しました。")
+    
     msg = MIMEText(f'あなたの確認コードは: {code}')
     msg['Subject'] = "【TSC　Repair Manager】ログイン確認コード"
     msg['From'] = from_email
