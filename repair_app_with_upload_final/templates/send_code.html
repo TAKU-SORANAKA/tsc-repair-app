@@ -1,0 +1,10 @@
+<h2>認証コード送信</h2>
+<form method="post">
+  <input type="email" name="email" placeholder="you@ts-c.net" required>
+  <button type="submit">送信</button>
+</form>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <p style="color:red;">{{ messages[0] }}</p>
+  {% endif %}
+{% endwith %}

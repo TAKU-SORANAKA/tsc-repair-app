@@ -1,0 +1,10 @@
+<h2>認証コード入力</h2>
+<form method="post">
+  <input type="text" name="code" placeholder="6桁のコード" required>
+  <button type="submit">認証</button>
+</form>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <p style="color:red;">{{ messages[0] }}</p>
+  {% endif %}
+{% endwith %}
