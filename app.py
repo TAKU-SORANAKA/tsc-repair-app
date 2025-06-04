@@ -10,10 +10,12 @@ Session(app)
 @app.route('/', methods=['GET', 'POST'])
 def send_code():
     if request.method == 'POST':
-        email = request.form.get('email')
-        # 認証処理などをここに書く
-        return redirect(url_for('menu'))
-    return render_template('send_code.html')
+        email = request.form['email']
+
+        # ドメインチェックを追加
+        if not email.endswith('@ts-c.net'):
+            flash('社内メールアドレス（@ts-c.net）をご利用ください。')
+            return render_template('send_code.html')
 
 @app.route('/menu')
 def menu():
