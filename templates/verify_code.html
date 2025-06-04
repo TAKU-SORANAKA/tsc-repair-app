@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>認証コード入力</title>
-</head>
-<body>
-    <h1>メールで受け取った認証コードを入力してください</h1>
-    <form method="post">
-        <input type="text" name="code" placeholder="認証コード">
-        <button type="submit">送信</button>
-    </form>
-</body>
-</html>
+@app.route('/verify', methods=['GET', 'POST'])
+def verify_code():
+    if request.method == 'POST':
+        user_code = request.form['code']
+        if user_code == session.get('code'):
+            return render_template('menu.html')  # 認証成功後の画面
+        else:
+            return "認証コードが正しくありません。"
+    return render_template('verify_code.html')
