@@ -1,0 +1,31 @@
+<h2>メニュー</h2>
+<a href="#diagnose">🔍 故障診断</a> | <a href="#register">📝 故障事例登録</a> | <a href="#upload">📂 CSVアップロード</a>
+<hr>
+
+<h3 id="diagnose">故障診断フォーム</h3>
+<form method="post" action="/diagnose">
+  製品名:<br><input type="text" name="product" required><br><br>
+  故障の症状:<br><textarea name="symptom" required></textarea><br><br>
+  <button type="submit">診断する</button>
+</form>
+
+<h3 id="register">故障事例登録フォーム</h3>
+<form method="post" action="/register">
+  製品名:<br><input type="text" name="r_product" required><br><br>
+  故障の症状:<br><textarea name="r_symptom" required></textarea><br><br>
+  原因:<br><textarea name="r_cause" required></textarea><br><br>
+  修理対応:<br><textarea name="r_repair" required></textarea><br><br>
+  <button type="submit">登録</button>
+</form>
+
+<h3 id="upload">CSV一括登録</h3>
+<form method="post" action="/upload" enctype="multipart/form-data">
+  <input type="file" name="files" accept=".csv" multiple required>
+  <button type="submit">アップロード</button>
+</form>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <p style="color:green;">{{ messages[0] }}</p>
+  {% endif %}
+{% endwith %}
