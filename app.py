@@ -38,7 +38,7 @@ def send_code():
 
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as smtp:
             smtp.starttls()
-            smtp.login('ceo@ts-c.net', os.environ.get('sachi111')) 
+            smtp.login('ceo@ts-c.net', os.environ.get('SENDER_PASSWORD'))
             smtp.send_message(msg)
 
         flash('認証コードを送信しました')
