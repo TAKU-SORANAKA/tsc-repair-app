@@ -8,8 +8,8 @@ app.secret_key = os.urandom(24)
 
 def send_email(to_email, code):
     from_email = "ceo@ts-c.net"
-    password = os.environ.get("EMAIL_PASSWORD")
-    smtp_server = "smtp.ts-c.net"  # ← 実際のSMTPサーバー名に適宜修正してください
+    password = os.environ.get("sachi111")
+    smtp_server = "mail.ts-c.net"  # ← 実際のSMTPサーバー名に適宜修正してください
     smtp_port = 587
 
     if not password:
