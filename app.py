@@ -23,13 +23,21 @@ def send_email(to_email, code):
             server.login(from_email, password)
 
             subject = "認証コードのお知らせ"
-            body = f"認証コードは {code} です。"
+            body = f'以下の認証コードを入力してください：\n\n{code}'
             msg = f"Subject: {subject}\n\n{body}"
 
-            server.sendmail(from_email, to_email, msg)
-    except smtplib.SMTPAuthenticationError as e:
-        print(f"SMTP認証エラー: {e}")
-        raise RuntimeError("メールサーバの認証に失敗しました。")
+ try:
+        msg = EmailMessage()
+        msg.set_content(body)
+        msg['Subject'] = subject
+        msg['From'] = from_email
+        msg['To'] = to_email
+
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(from_email, password)
+            server.send_message(msg)
+
     except Exception as e:
         print(f"メール送信エラー: {e}")
         raise RuntimeError("メール送信中に予期せぬエラーが発生しました。")
